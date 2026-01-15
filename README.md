@@ -6,7 +6,7 @@ and what happens to electricity demand if EV usage increases.
 
 This project is **data-first**, not hype-driven.
 
-![EV Dashboard](assets/bg1.png)
+![EV Dashboard](assets/unnamed.png)
 ---
 
 ## What does this project answer?
