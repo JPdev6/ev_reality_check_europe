@@ -8,6 +8,81 @@ This project is **data-first**, not hype-driven.
 
 ![EV Dashboard](assets/unnamed.png)
 ---
+## 📂 Data Sources
+
+This project combines multiple **official European datasets** and **media-derived data**, processed using **Databricks** and **Apache Spark**.
+
+---
+
+### 1️⃣ European Vehicle CO₂ & Registration Data  
+**Source:** European Environment Agency (EEA)
+
+- **Dataset:** CO₂ emissions from passenger cars  
+- **Coverage:** EU + EEA countries  
+- **Data includes:**
+  - Vehicle registrations
+  - Fuel type (electric, petrol, diesel, hybrid)
+  - Vehicle mass, manufacturer, model
+  - Electric range & emissions metrics  
+- **Used to:**
+  - Measure EV adoption trends
+  - Build battery & range statistics
+  - Create EV master and adoption tables  
+
+📎 Source: https://www.eea.europa.eu/data-and-maps/data/co2-cars-emission-20  
+
+---
+
+### 2️⃣ European Electricity Prices  
+**Source:** Eurostat
+
+- **Dataset:** Electricity prices for household consumers  
+- **Coverage:** EU countries  
+- **Granularity:** Semi-annual / annual  
+- **Metric:**
+  - Average electricity price (€/kWh)  
+- **Used to:**
+  - Compare energy costs across countries
+  - Estimate EV charging cost impact
+  - Feed the EV market simulator  
+
+📎 Source: https://ec.europa.eu/eurostat  
+
+---
+
+### 3️⃣ EV Battery Size Prediction (Derived Dataset)  
+**Source:** Internal feature engineering & machine learning
+
+- **Battery capacity estimated from:**
+  - Electric range
+  - Energy consumption per km
+  - Vehicle mass  
+- **Model:**
+  - Gradient Boosted Trees (Spark ML)  
+- **Output:**
+  - `battery_kwh_predicted` (Gold layer)  
+
+⚠️ *This is a modeled estimate, not a manufacturer specification.*
+
+---
+
+### 4️⃣ Public Sentiment & Media Coverage (EVs)  
+**Source:** GDELT Global Knowledge Graph (GKG)
+
+- **Coverage:** Global news sources  
+- **Filtered to:**
+  - Europe
+  - EV-related themes (electric vehicles, batteries, charging, emissions)  
+- **Metrics:**
+  - Article volume
+  - Average media tone
+  - Positive vs negative coverage share  
+- **Used to:**
+  - Provide context on public & media discourse
+  - Complement adoption and cost data  
+  - *(Not treated as opinion polling)*  
+
+📎 Source: https://www.gdeltproject.org/  
 
 ## What does this project answer?
 
@@ -110,6 +185,26 @@ Public sentiment is based on **media coverage**, not surveys.
 It is used as a **signal**, not as a truth metric.
 
 ---
+
+## ⚠️ Limitations & Assumptions
+
+- **Battery capacity is estimated**, not manufacturer-reported.  
+  Predictions are based on statistical patterns and should be interpreted as approximations.
+
+- **Electricity prices are national averages.**  
+  Local tariffs, charging contracts, and time-of-use pricing are not included.
+
+- **EV adoption data reflects registrations, not vehicles in use.**  
+  Stock vs flow effects are not fully captured.
+
+- **Public sentiment comes from media coverage (GDELT), not surveys.**  
+  News tone reflects media attention and framing, not direct public opinion.
+
+- **Simulator results are illustrative.**  
+  The EV market simulator is a simplified “what-if” tool and does not model grid constraints, subsidies, or behavioral effects.
+
+- **Temporal coverage varies by dataset.**  
+  Some datasets do not fully overlap in time; charts automatically adjust to available data.
 
 ## What this project is NOT
 
